@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:disenos/src/challenge/cuadrado_animado_page.dart';
+import 'package:disenos/src/pages/circular_graphics_page.dart';
+// import 'package:disenos/src/labs/circular_progress_page.dart';
+// import 'package:disenos/src/challenge/cuadrado_animado_page.dart';
 // import 'package:disenos/src/pages/animations_page.dart';
 // import 'package:disenos/src/pages/headers_page.dart';
 
@@ -15,7 +17,7 @@ class MainApp extends StatelessWidget {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: CuadradoAnimagoPage(),
+      home: CircularGraphicsPage(),
     );
   }
 }
