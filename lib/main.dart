@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:disenos/src/pages/emergency_page.dart';
+import 'package:disenos/src/pages/sliver_list_page.dart';
+// import 'package:disenos/src/pages/emergency_page.dart';
 // import 'package:disenos/src/pages/pinterest_page.dart';
 // import 'package:disenos/src/pages/slideshow_page.dart';
 // import 'package:disenos/src/labs/slideshow_page.dart';
@@ -18,10 +19,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: EmergencyPage(),
+      home: SliverListPage(),
     );
   }
 }
