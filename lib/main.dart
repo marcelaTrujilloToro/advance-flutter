@@ -1,19 +1,13 @@
-import 'package:disenos/src/pages/page_one.dart';
+import 'package:disenos/src/pages/launcher_page.dart';
+import 'package:disenos/src/theme/theme_changer.dart';
 import 'package:flutter/material.dart';
-
-// import 'package:disenos/src/pages/sliver_list_page.dart';
-// import 'package:disenos/src/pages/emergency_page.dart';
-// import 'package:disenos/src/pages/pinterest_page.dart';
-// import 'package:disenos/src/pages/slideshow_page.dart';
-// import 'package:disenos/src/labs/slideshow_page.dart';
-// import 'package:disenos/src/pages/circular_graphics_page.dart';
-// import 'package:disenos/src/labs/circular_progress_page.dart';
-// import 'package:disenos/src/challenge/cuadrado_animado_page.dart';
-// import 'package:disenos/src/pages/animations_page.dart';
-// import 'package:disenos/src/pages/headers_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(ChangeNotifierProvider(
+    create: (_) => ThemeChanger(2),
+    child: const MainApp(),
+  ));
 }
 
 class MainApp extends StatelessWidget {
@@ -21,10 +15,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    final currentTheme = Provider.of<ThemeChanger>(context).currentTheme;
+
+    return MaterialApp(
+      theme: currentTheme,
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: PageOne(),
+      home: const LauncherPage(),
     );
   }
 }

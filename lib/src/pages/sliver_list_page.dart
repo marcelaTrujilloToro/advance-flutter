@@ -1,4 +1,6 @@
+import 'package:disenos/src/theme/theme_changer.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SliverListPage extends StatelessWidget {
   const SliverListPage({super.key});
@@ -20,11 +22,16 @@ class _ButtonNewList extends StatelessWidget {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return ButtonTheme(
       child: ElevatedButton(
           style: ButtonStyle(
-            backgroundColor:
-                MaterialStateProperty.all<Color>(const Color(0xffED6762)),
+            backgroundColor: MaterialStateProperty.all<Color>(
+              appTheme.darkTheme
+                  ? appTheme.currentTheme.primaryColor
+                  : const Color(0xffED6762),
+            ),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               const RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
@@ -36,11 +43,11 @@ class _ButtonNewList extends StatelessWidget {
           child: SizedBox(
             height: size.height * 0.08,
             width: size.width * 0.7,
-            child: const Center(
+            child: Center(
               child: Text(
                 'CREATE A NEW LIST',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: appTheme.currentTheme.scaffoldBackgroundColor,
                   fontSize: 18,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 2,
@@ -75,6 +82,7 @@ class _MainScroll extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return CustomScrollView(
       slivers: <Widget>[
         SliverPersistentHeader(
@@ -84,7 +92,7 @@ class _MainScroll extends StatelessWidget {
             maxHeight: 200,
             child: Container(
               alignment: Alignment.centerLeft,
-              color: Colors.white,
+              color: appTheme.scaffoldBackgroundColor,
               child: _Title(),
             ),
           ),
@@ -136,15 +144,18 @@ class _SliverCustomHeaderDelegate extends SliverPersistentHeaderDelegate {
 class _Title extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Column(
       children: <Widget>[
         const SizedBox(height: 30),
         Container(
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: const Text(
+          child: Text(
             'New',
             style: TextStyle(
-              color: Color(0xff532128),
+              color:
+                  (appTheme.darkTheme) ? Colors.grey : const Color(0xff532128),
               fontSize: 50,
             ),
           ),
@@ -155,9 +166,15 @@ class _Title extends StatelessWidget {
           children: <Widget>[
             const SizedBox(width: 100),
             Positioned(
-                bottom: 8,
-                child: Container(
-                    width: 120, height: 8, color: const Color(0xfff7cdd5))),
+              bottom: 8,
+              child: Container(
+                width: 120,
+                height: 8,
+                color: (appTheme.darkTheme)
+                    ? Colors.grey
+                    : const Color(0xfff7cdd5),
+              ),
+            ),
             const Text(
               'List',
               style: TextStyle(
@@ -203,6 +220,8 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appTheme = Provider.of<ThemeChanger>(context);
+
     return Container(
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.all(30),
@@ -210,7 +229,7 @@ class _ListItem extends StatelessWidget {
       margin: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(30),
-        color: color,
+        color: (appTheme.darkTheme) ? Colors.grey : color,
       ),
       child: Text(
         title,
