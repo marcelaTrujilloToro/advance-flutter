@@ -1,7 +1,9 @@
 // ignore_for_file: avoid_unnecessary_containers
 
+import 'package:disenos/src/models/layout_model.dart';
+
 import 'package:disenos/src/theme/theme_changer.dart';
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,18 +11,37 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:disenos/src/routes/routes.dart';
 import 'package:provider/provider.dart';
 
-class LauncherPage extends StatelessWidget {
-  const LauncherPage({super.key});
+class LauncherTabletPage extends StatelessWidget {
+  const LauncherTabletPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+
+    final layoutModel = Provider.of<LayoutModel>(context);
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Diseños de Flutter - Telefono'),
+        title: const Text('Diseños de Flutter- Tablet'),
         backgroundColor: appTheme.currentTheme.primaryColor,
       ),
-      body: _ListOptions(),
+      body: Row(
+        children: [
+          SizedBox(
+            width: 300,
+            height: double.infinity,
+            child: _ListOptions(),
+          ),
+          Container(
+            width: 1,
+            height: double.infinity,
+            color: (appTheme.darkTheme)
+                ? Colors.grey
+                : appTheme.currentTheme.primaryColor,
+          ),
+          Expanded(child: layoutModel.currentPage)
+        ],
+      ),
       drawer: _PrincipalMenu(),
     );
   }
@@ -48,11 +69,14 @@ class _ListOptions extends StatelessWidget {
           color: appTheme.primaryColor,
         ),
         onTap: () {
-          Navigator.push(
-              context,
-              CupertinoPageRoute(
-                builder: (BuildContext context) => pageRoutes[index].page,
-              ));
+          // Navigator.push(
+          //     context,
+          //     CupertinoPageRoute(
+          //       builder: (BuildContext context) => pageRoutes[index].page,
+          //     ));
+          final layoutModel = Provider.of<LayoutModel>(context, listen: false);
+
+          layoutModel.currentPage = pageRoutes[index].page;
         },
       ),
     );
